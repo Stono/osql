@@ -4,7 +4,7 @@ var Database = require('../lib/database');
 var deride = require('deride');
 
 /*jshint -W068 */
-describe.only('Table', function() {
+describe('Table', function() {
   it('Should throw an error if no options are passed', function() {
     (function() {
       var table = new Table();
