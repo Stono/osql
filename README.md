@@ -32,7 +32,7 @@ var db = new osql.Database('mssql', {
 Once you've got you db object and driver, define a table and start manipulating it:
 ```javascript
 var table = new osql.Table({
-  name: 'example_table',
+  table: 'example_table',
   identity: 'id',
   database: db
 });
