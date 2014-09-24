@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "blanket": "~1.1.6",
+    "deride": "^0.1.13",
     "grunt": "~0.4.5",
     "grunt-blanket": "~0.0.8",
     "grunt-contrib-jshint": "~0.10.0",
