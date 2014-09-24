@@ -2,6 +2,7 @@
 var Table = require('../lib/table');
 var Database = require('../lib/database');
 var deride = require('deride');
+var should = require('should');
 
 /*jshint -W068 */
 describe('Table', function() {
@@ -93,22 +94,36 @@ describe('Table', function() {
         });
     });
 
-    it('Should allow me to select from the table', function(done) {
+    it('Should allow me to select a single row', function(done) {
       table.insert({
         id: 1,
         column1: 'test'
       }).then(function(model) {
         db.expect.insert.called.once();
-        table.select()
-          .where('id = ?', model.id)
-          .execute()
-          .then(function(results) {
+        table.select(model.id)
+          .then(function(result) {
             db.expect.select.called.once();
-            results.length.should.eql(1);
-            results[0].should.eql(model);
+            result.should.eql(model);
             done();
           });
       });
+    });
+
+    it('Should allow me to select multiple rows', function(done) {
+      var inserting = [];
+      inserting.push({column1: 'test'});
+      inserting.push({column1: 'test again'});
+      table.insert(inserting)
+        .then(function() {
+          db.expect.insert.called.once();
+          table.selectMany()
+            .execute()
+            .then(function(results) {
+              db.expect.select.called.once();
+              results.length.should.eql(2);
+              done();
+            });
+        });
     });
 
     it('Should allow me to update a single row', function(done) {
@@ -116,41 +131,42 @@ describe('Table', function() {
         id: 1,
         column1: 'test'
       }).then(function(model) {
-        table.updateOne(model.id, {
-          column1: 'updated' 
-        })
-        .then(function() {
-          db.expect.update.called.once();
-          table.select()
-            .where('id = ?', model.id)
-            .execute()
-            .then(function(results) {
-              results[0].column1.should.eql('updated');
-              done();
-            });
-        });
+        model.column1 = 'updated';
+        table.update(model.id, model) 
+          .then(function() {
+            db.expect.update.called.once();
+            table.select(model.id)
+              .then(function(result) {
+                result.should.eql(model);
+                done();
+              });
+          });
       });
     });
 
     it('Should allow me to update multiple rows', function(done) {
-      table.insert({
-        id: 1,
-        column1: 'test'
-      }).then(function(model) {
-        table.update({
-          column1: 'updated' 
-        })
+      var inserting = [];
+      inserting.push({column1: 'test'});
+      inserting.push({column1: 'test again'});
+      inserting.push({column1: 'test again and again'});
+      table.insert(inserting)
         .then(function() {
-          db.expect.update.called.once();
-          table.select()
-            .where('id = ?', model.id)
-            .execute()
-            .then(function(results) {
-              results[0].column1.should.eql('updated');
-              done();
-            });
+          table.updateMany({
+            column1: 'updated' 
+          })
+          .then(function() {
+            db.expect.update.called.once();
+            table
+              .selectMany()
+              .execute()
+              .then(function(results) {
+                for(var x = 0; x < results.length; x++ ) {
+                  results[x].column1.should.eql('updated');
+                }
+                done();
+              });
+          });
         });
-      });
     });
 
     it('Should allow me to delete a single row', function(done) {
@@ -158,14 +174,12 @@ describe('Table', function() {
         id: 1,
         column1: 'test'
       }).then(function(model) {
-        table.deleteOne(model.id)
+        table.delete(model.id)
           .then(function() {
             db.expect.delete.called.once();
-            table.select()
-              .where('id = ?', model.id)
-              .execute()
-              .then(function(results) {
-                results.length.should.eql(0);
+            table.select(model.id)
+              .then(function(result) {
+                should(result).eql(null);
                 done();
               });
           });
@@ -177,12 +191,12 @@ describe('Table', function() {
         id: 1,
         column1: 'test'
       }).then(function() {
-        table.delete()
+        table.deleteMany()
           .where('id > ?', 0)
           .execute()
           .then(function() {
             db.expect.delete.called.once();
-            table.select()
+            table.selectMany()
               .execute()
               .then(function(results) {
                 results.length.should.eql(0);
