@@ -16,7 +16,10 @@ Install the module with: `npm install osql` and then one of the following driver
 ```javascript
 var osql = require('osql');
 var db = new osql.Database('sqlite3', ':memory:');
+```
  _or_
+```javascript
+var osql = require('osql');
 var db = new osql.Database('mssql', {
   user: 'example_user',
   password: 'example_user_password',
