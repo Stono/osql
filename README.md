@@ -8,6 +8,8 @@ Currently supported drivers are:
  - sqlite3
  - mssql
 
+The language syntax used in the "many" statements below, that is used to generate the sql required is [https://github.com/hiddentao/squel](https://github.com/hiddentao/squel).
+
 ## Getting Started
 Install the module with: `npm install osql` and then one of the following drivers:
  - `npm install sqlite3`
@@ -70,7 +72,7 @@ table.select(rowId)
   // done
 });
 ```
-### Selecting mutliple rows from the table
+### Selecting mutliple rows from the table using squel syntax
 ```javascript
 table.selectMany()
 .where('id > ?', 0)
@@ -88,7 +90,7 @@ table.update(rowId, {
   // done
 });
 ```
-### Updating mutliple rows from the table
+### Updating mutliple rows from the table using squel syntax
 ```javascript
 table.updateMany({
   column1: 'updated value'
@@ -106,7 +108,7 @@ table.delete(rowId)
   // done
 });
 ```
-### Deleting mutliple rows from the table
+### Deleting mutliple rows from the table using squel syntax
 ```javascript
 table.deleteMany()
 .where('id > ?', 0)
@@ -121,6 +123,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 0.1.0 Initial release
+0.1.1-2 Bug fixes
 
 ## License
 Copyright (c) 2014 Karl Stoney  
