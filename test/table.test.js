@@ -154,6 +154,8 @@ describe('Table', function() {
           table.updateMany({
             column1: 'updated' 
           })
+          .where('id > 0')
+          .execute()
           .then(function() {
             db.expect.update.called.once();
             table
