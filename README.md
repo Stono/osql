@@ -125,6 +125,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.1.0 Initial release
  - 0.1.1-2 Bug fixes
  - 0.1.3 Encapsulation bug fix, inserting of an object returns new instance of object with id
+ - 0.1.4 Bug fix
+ - 0.1.5 underlying db is now exposed via the dal
 
 ## License
 Copyright (c) 2014 Karl Stoney  
