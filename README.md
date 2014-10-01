@@ -127,6 +127,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.1.3 Encapsulation bug fix, inserting of an object returns new instance of object with id
  - 0.1.4 Bug fix
  - 0.1.5 underlying db is now exposed via the dal
+ - 0.1.6 Will now escape single quotes by default
 
 ## License
 Copyright (c) 2014 Karl Stoney  

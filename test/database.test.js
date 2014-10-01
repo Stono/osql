@@ -97,6 +97,30 @@ describe('Database', function() {
               });
           });
 
+          it('Should allow me to execute an insert statement and escape single quotes', function(done) {
+            var db = getDriver(driver.name, driver.opts);
+            db.execute(driver.createTable)
+              .then(function() {
+                return db.insert()
+                  .into('example_table')
+                  .set('column1', 'te\'st')
+                  .execute()
+                  .then(function() {
+                    return db.select()
+                      .from('example_table')
+                      .limit(1)
+                      .execute()
+                      .then(function(results) {
+                        results.length.should.eql(1);
+                        results[0].column1.should.eql('te\'st');
+                        done();
+                      });
+                  });
+              }).then(null, function(err) {
+                done(err);
+              });
+          });
+
           it('Should allow me to execute a update statement', function(done) {
             var db = getDriver(driver.name, driver.opts);
             db.execute(driver.createTable)
