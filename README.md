@@ -129,6 +129,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.1.5 underlying db is now exposed via the dal
  - 0.1.6 Will now escape single quotes by default
  - 0.1.7 Concurrency fix for insert + get ID statements
+ - 0.1.8 Dependency Updates
 
 ## License
 Copyright (c) 2014 Karl Stoney  
