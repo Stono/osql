@@ -71,6 +71,21 @@ describe('Table', function() {
       });
     });
 
+    it('Multiple concurrent inserts should correctly return unqiue identifiers', function(done) {
+      var insert1;
+      table.insert({
+        column1: 'test'
+      }).then(function(model) {
+        insert1 = model.id;
+      });
+      table.insert({
+        column1: 'test'
+      }).then(function(model) {
+        model.id.should.not.eql(insert1);
+        done();
+      });
+    });
+
     it('Should allow me to insert a single row with a provided id', function(done) {
       table.insert({
         id: 1,
@@ -155,19 +170,19 @@ describe('Table', function() {
             column1: 'updated' 
           })
           .where('id > 0')
-          .execute()
-          .then(function() {
-            db.expect.update.called.once();
-            table
-              .selectMany()
-              .execute()
-              .then(function(results) {
-                for(var x = 0; x < results.length; x++ ) {
-                  results[x].column1.should.eql('updated');
-                }
-                done();
-              });
-          });
+            .execute()
+            .then(function() {
+              db.expect.update.called.once();
+              table
+                .selectMany()
+                .execute()
+                .then(function(results) {
+                  for(var x = 0; x < results.length; x++ ) {
+                    results[x].column1.should.eql('updated');
+                  }
+                  done();
+                });
+            });
         });
     });
 
