@@ -12,7 +12,8 @@ module.exports = function(grunt) {
     mochaTest: {
       test: {
         options: {
-          reporter: 'spec'
+          reporter: 'spec',
+          timeout: 3000
         },
         src: ['test/**/*.js']
       },
@@ -20,6 +21,7 @@ module.exports = function(grunt) {
         options: {
           reporter: 'html-cov',
           quiet: true,
+          timeout: 3000,
           captureFile: 'coverage/coverage.html'
         },
         src: ['test/**/*.js']
