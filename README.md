@@ -134,7 +134,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.2.0 Fixed concurrency issues on MSSQL driver, as well as fixing an issue around IDENTITY_INSERT
  - 0.2.1 Updated MSSQL to 1.2.1
  - 0.2.2 table.options.identity is no longer a required paramter as tables dont always have identities
- - 0.2.3 version bump
+ - 0.2.4 Version Bump
 
 ## License
 Copyright (c) 2014 Karl Stoney  
