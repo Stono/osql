@@ -132,6 +132,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.1.8 Dependency Updates
  - 0.1.9 Fixed concurrency issues on INSERT + get ID
  - 0.2.0 Fixed concurrency issues on MSSQL driver, as well as fixing an issue around IDENTITY_INSERT
+ - 0.2.1 Updated MSSQL to 1.2.1
 
 ## License
 Copyright (c) 2014 Karl Stoney  

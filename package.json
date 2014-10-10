@@ -1,7 +1,7 @@
 {
   "name": "osql",
   "description": "A simple object based interface to SQL data sources.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/Stono/osql",
   "author": {
     "name": "Karl Stoney",
@@ -37,7 +37,7 @@
     "grunt-mocha-test": "~0.12.1",
     "grunt-notify": "~0.3.1",
     "grunt-shell": "~1.1.1",
-    "mssql": "^1.2.0",
+    "mssql": "^1.2.1",
     "should": "^4.0.4",
     "sqlite3": "^3.0.2"
   },
