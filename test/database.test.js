@@ -2,28 +2,13 @@
 var _ = require('lodash');
 var Database = require('../lib/database');
 var should = require('should');
+var drivers = require('./drivers');
 
 /*jshint -W068 */
 describe('Database', function() {
   var getDriver = function(name, opts) {
     return new Database(name, opts);
   };
-  var drivers = [];
-  drivers.push({
-    name: 'sqlite3', 
-    opts: ':memory:',
-    createTable: 'CREATE TABLE example_table (id INTEGER PRIMARY KEY ASC, column1 TEXT)'
-  });
-  drivers.push({
-    name: 'mssql', 
-    opts: {
-      user: 'example_user',
-      password: 'example_user_password',
-      server: '172.19.104.11',
-      database: 'example_database'
-    },
-    createTable: 'CREATE TABLE example_table (id int not null identity(1, 1) primary key, column1 TEXT)'
-  });
   it('Should throw an error if an invalid driver is passed', function() {
     (function() {
       var db = getDriver('unknown', {});
