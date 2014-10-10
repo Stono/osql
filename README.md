@@ -35,7 +35,7 @@ Once you've got you db object and driver, define a table and start manipulating 
 ```javascript
 var table = new osql.Table({
   table: 'example_table',
-  identity: 'id',
+  identity: 'id',  // Optional
   database: db
 });
 ```
@@ -133,6 +133,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.1.9 Fixed concurrency issues on INSERT + get ID
  - 0.2.0 Fixed concurrency issues on MSSQL driver, as well as fixing an issue around IDENTITY_INSERT
  - 0.2.1 Updated MSSQL to 1.2.1
+ - 0.2.2 table.options.identity is no longer a required paramter as tables dont always have identities
 
 ## License
 Copyright (c) 2014 Karl Stoney  

@@ -1,7 +1,7 @@
 {
   "name": "osql",
   "description": "A simple object based interface to SQL data sources.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/Stono/osql",
   "author": {
     "name": "Karl Stoney",

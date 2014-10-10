@@ -26,15 +26,6 @@ describe('Table', function() {
       table = null;
     }).should.throw('options.table is null or undefined');
   });
-  it('Should throw an error if no identity column name is passed', function() {
-    (function() {
-      var table = new Table({
-        table: 'example_table',
-        database: {}
-      });
-      table = null;
-    }).should.throw('options.identity is null or undefined');
-  });
   it('Should throw an error if no database is passed', function() {
     (function() {
       var table = new Table({
