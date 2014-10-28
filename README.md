@@ -135,6 +135,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.2.1 Updated MSSQL to 1.2.1
  - 0.2.2 table.options.identity is no longer a required paramter as tables dont always have identities
  - 0.2.4 Version Bump
+ - 0.2.5 Changed a console warn to a log, so as not to break jenkins pipelines
 
 ## License
 Copyright (c) 2014 Karl Stoney  
