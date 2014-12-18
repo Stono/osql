@@ -1,7 +1,7 @@
 {
   "name": "osql",
   "description": "A simple object based interface to SQL data sources.",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/Stono/osql",
   "author": {
     "name": "Karl Stoney",
@@ -29,22 +29,26 @@
   },
   "devDependencies": {
     "blanket": "~1.1.6",
-    "deride": "^0.1.13",
+    "deride": "^0.1.15",
     "grunt": "~0.4.5",
     "grunt-blanket": "~0.0.8",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-mocha-test": "~0.12.0",
+    "grunt-mocha-test": "~0.12.1",
     "grunt-notify": "~0.3.1",
     "grunt-shell": "~1.1.1",
-    "mssql": "^1.2.0",
+    "mssql": "^1.2.1",
+    "restify": "^2.8.4",
+    "restler": "^3.2.2",
     "should": "^4.0.4",
-    "sqlite3": "^3.0.0"
+    "sqlite3": "^3.0.2"
   },
   "keywords": [],
   "dependencies": {
+    "async": "^0.9.0",
+    "conker": "^0.1.2",
     "lodash": "^2.4.1",
     "squel": "^3.8.1",
-    "when": "^3.4.6"
+    "when": "^3.5.0"
   }
 }
