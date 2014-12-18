@@ -10,7 +10,7 @@ var rest = require('restler');
 var _ = require('lodash');
 
 /*jshint -W068 */
-describe('REST Middleware', function() {
+describe.only('REST Middleware', function() {
   var table;
   var port = 9284;
   var baseUrl = 'http://127.0.0.1:' + port + '/api';
@@ -90,6 +90,11 @@ describe('REST Middleware', function() {
     done();
   }));
 
+  tests.push(new Test('Get a Single Column', 'get', '/1/column1', 200, function(data, result, done) {
+    data.should.eql('test'); 
+    done();
+  }));
+
   tests.push(new Test('Create a new Record', 'postJson', '', 201, function(data, result, done) {
     data.column1.should.eql('new record'); 
     data.should.have.property('id');
@@ -112,7 +117,7 @@ describe('REST Middleware', function() {
   }, {
     column1: 'updated'
   }));
-
+  
   _.forEach(tests, function(test) {
     it(test.name + '(' + test.url + ')', function(done) {
       test.go(done);

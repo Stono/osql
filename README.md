@@ -149,11 +149,12 @@ server.listen(port, done);
 ```
 From there, you will get a bunch of URLs exposed on the server:
 ```
-POST /example_table
-GET /example_table
-GET /example_table/id
-PUT /example_table/id
-DELETE /example_table/id
+POST /example_table         // Create an entity
+GET /example_table          // Get all entities
+GET /example_table/id       // Get a single entity by id
+GET /example_table/id/field // Get a field from a single entity by id
+PUT /example_table/id       // Update an entity by id
+DELETE /example_table/id    // Delete an entity by id
 ```
 Have a look in test/rest.test.js to see how to query it using Restler
 
