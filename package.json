@@ -38,6 +38,8 @@
     "grunt-notify": "~0.3.1",
     "grunt-shell": "~1.1.1",
     "mssql": "^1.2.1",
+    "restify": "^2.8.4",
+    "restler": "^3.2.2",
     "should": "^4.0.4",
     "sqlite3": "^3.0.2"
   },
