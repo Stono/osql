@@ -149,12 +149,12 @@ server.listen(port, done);
 ```
 From there, you will get a bunch of URLs exposed on the server:
 ```
-POST /example_table         // Create an entity
-GET /example_table          // Get all entities
-GET /example_table/id       // Get a single entity by id
-GET /example_table/id/field // Get a field from a single entity by id
-PUT /example_table/id       // Update an entity by id
-DELETE /example_table/id    // Delete an entity by id
+POST /api/example_table         // Create an entity
+GET /api/example_table          // Get all entities
+GET /api/example_table/id       // Get a single entity by id
+GET /api/example_table/id/field // Get a field from a single entity by id
+PUT /api/example_table/id       // Update an entity by id
+DELETE /api/example_table/id    // Delete an entity by id
 ```
 Have a look in test/rest.test.js to see how to query it using Restler
 
@@ -176,7 +176,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.2.2 table.options.identity is no longer a required paramter as tables dont always have identities
  - 0.2.4 Version Bump
  - 0.2.5 Changed a console warn to a log, so as not to break jenkins pipelines
- - 0.2.6 REST wrapping for Restify
+ - 0.3.0 REST wrapping for Restify
 
 ## License
 Copyright (c) 2014 Karl Stoney  
