@@ -10,7 +10,7 @@ var rest = require('restler');
 var _ = require('lodash');
 
 /*jshint -W068 */
-describe.only('REST Middleware', function() {
+describe('REST Middleware', function() {
   var table;
   var port = 9284;
   var baseUrl = 'http://127.0.0.1:' + port + '/api';
