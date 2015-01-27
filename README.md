@@ -177,6 +177,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.2.4 Version Bump
  - 0.2.5 Changed a console warn to a log, so as not to break jenkins pipelines
  - 0.3.0 REST wrapping for Restify
+ - 0.3.1 Updated dependencies
 
 ## License
 Copyright (c) 2014 Karl Stoney  
