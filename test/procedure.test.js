@@ -42,7 +42,7 @@ after(function(done) {
     });
 });
 
-describe('Stored Procedure', function() {
+describe('Happy Stored Procedure', function() {
 
   it('should return record set', function(done) {
       db.procedure.execute('SP_TEST1', function(err, recordSet){
@@ -80,65 +80,55 @@ describe('Stored Procedure', function() {
 
 
 
-describe('Stored Procedure', function() {
+describe('Unhappy Stored Procedure', function() {
 
   it('should through error if not a valid stored procedure', function(done) {
-      db.procedure.execute('SP_TEST', function(err, recordSet){
+      db.procedure.execute('SP_TEST', function(err){
         if(err){
-          done(err);
+          should.exist(err);
+          done();
         }
-        console.log(recordSet);
       });
     });  
 
   it('should through error if not a valid input parameter', function(done) {
       db.procedure.input('invalid', 'Int', 5);
-      db.procedure.execute('SP_TEST2', function(err, recordSet){
+      db.procedure.execute('SP_TEST2', function(err){
         if(err){
-          done(err);
+          should.exist(err);
+          done();
         }
-        console.log(recordSet);
       });
   });  
 
   it('should through error if not a valid data type in input parameter', function(done) {
-      db.procedure.input('id', 'Undefined', 5);
-      db.procedure.execute('SP_TEST2', function(err, recordSet){
+      db.procedure.input('id', 'IntV', 5);
+      db.procedure.execute('SP_TEST2', function(err){
         if(err){
-          done(err);
+          should.exist(err);
+          done();
         }
-        console.log(recordSet);
       });
   });     
 
   it('should through error if less number of parameter passed', function(done) {
-      db.procedure.execute('SP_TEST2', function(err, recordSet){
+      db.procedure.execute('SP_TEST2', function(err){
         if(err){
-          done(err);
+          should.exist(err);
+          done();
         }
-        console.log(recordSet);
       });
   });      
 
   it('should through error if more number of parameter passed', function(done) {
       db.procedure.input('id1', 'Int', 5);
       db.procedure.input('id2', 'Int', 5);
-      db.procedure.execute('SP_TEST2', function(err, recordSet){
+      db.procedure.execute('SP_TEST2', function(err){
         if(err){
-          done(err);
+          should.exist(err);
+          done();
         }
-        console.log(recordSet);
       });
   });    
 
-  it('should return output for the given id', function(done) {
-      db.procedure.input('id', 'Int', 7);
-      db.procedure.output('result', 'NVarChar');
-      db.procedure.execute('SP_TEST3', function(err, recordSet){
-        if(err){
-          done(err);
-        }
-        console.log(recordSet);
-      });
-  });    
 });
