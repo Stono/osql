@@ -12,8 +12,6 @@ var getDriver = function(name, opts) {
 var driver = drivers[1];
 var db = getDriver(driver.name, driver.opts);
 
-console.log(db);
-
 var path = 'test/sql/';
 var options = {encoding:'utf8'};
 var script;
