@@ -3,6 +3,7 @@
 var Database = require('../lib/database');
 var drivers = require('./drivers');
 var should = require('should');
+var fs = require('fs');
 
 var getDriver = function(name, opts) {
   return new Database(name, opts);
@@ -11,70 +12,80 @@ var getDriver = function(name, opts) {
 var driver = drivers[1];
 var db = getDriver(driver.name, driver.opts);
 
+console.log(db);
+
+var path = 'test/sql/';
+var options = {encoding:'utf8'};
+var script;
+
 before(function(done) {
+  script = fs.readFileSync(path + 'dropSP1.sql',options);
   db.execute(driver.dropSP1)
     .then(function(){
-      db.execute(driver.createSP1);
+      script = fs.readFileSync(path + 'createSP1.sql',options);
+      db.execute(script);
     })
     .then(function(){
-      db.execute(driver.dropSP2);
+      script = fs.readFileSync(path + 'dropSP2.sql',options);
+      db.execute(script);
     })
     .then(function(){
-      db.execute(driver.createSP2);
+      script = fs.readFileSync(path + 'createSP2.sql',options);
+      db.execute(script);
     })
     .then(function(){
-      db.execute(driver.dropSP3);
+      script = fs.readFileSync(path + 'dropSP3.sql',options);
+      db.execute(script);
     })
     .then(function(){
-      db.execute(driver.createSP3);
+      script = fs.readFileSync(path + 'createSP3.sql',options);
+      db.execute(script);
       done();
     });
 });
 
 after(function(done) {
-  db.execute(driver.dropSP1)
+  script = fs.readFileSync(path + 'dropSP1.sql',options);
+  db.execute(script)
     .then(function(){
+      script = fs.readFileSync(path + 'dropSP2.sql',options);
       db.execute(driver.dropSP2);
     })
     .then(function(){
+      script = fs.readFileSync(path + 'dropSP3.sql',options);
       db.execute(driver.dropSP3);
         done();
     });
 });
 
+
 describe('Happy Stored Procedure', function() {
 
   it('should return record set', function(done) {
-      db.procedure.execute('SP_TEST1', function(err, recordSet){
-        if(err){
-          done(err);
-        }
-        should.exist(recordSet[0][0]);
-        done();
-      });
-    });  
+      db.procedure.execute('SP_TEST1')
+        .then(function(recordSet){
+          should.exist(recordSet);
+          done();
+        });
+  });  
 
   it('should return record for the given id', function(done) {
       db.procedure.input('id', 'Int', 5);
-      db.procedure.execute('SP_TEST2', function(err, recordSet){
-        if(err){
-          done(err);
-        }
-        recordSet[0][0].name.should.equal('test5');
-        done();
-      });
+      db.procedure.execute('SP_TEST2')
+        .then(function(recordSet){
+          recordSet[0].name.should.equal('test5');
+          done();
+        });
   });  
 
   it('should return output for the given id', function(done) {
       db.procedure.input('id', 'Int', 7);
       db.procedure.output('result', 'NVarChar');
-      db.procedure.execute('SP_TEST3', function(err, recordSet, returnValue){
-        if(err){
-          done(err);
-        }
-        returnValue.should.equal(0);
-        done();
-      });
+      db.procedure.execute('SP_TEST3')
+        .then(function(recordSet){
+          recordSet.returnValue.should.equal(0);
+          done();
+        });
   });    
 });
 
@@ -83,52 +94,47 @@ describe('Happy Stored Procedure', function() {
 describe('Unhappy Stored Procedure', function() {
 
   it('should through error if not a valid stored procedure', function(done) {
-      db.procedure.execute('SP_TEST', function(err){
-        if(err){
-          should.exist(err);
-          done();
-        }
-      });
+      db.procedure.execute('SP_TEST')
+        .catch(function(err){
+            should.exist(err);
+            done();
+        });
     });  
 
   it('should through error if not a valid input parameter', function(done) {
       db.procedure.input('invalid', 'Int', 5);
-      db.procedure.execute('SP_TEST2', function(err){
-        if(err){
-          should.exist(err);
-          done();
-        }
-      });
+      db.procedure.execute('SP_TEST2')
+        .catch(function(err){
+            should.exist(err);
+            done();
+        });
   });  
 
   it('should through error if not a valid data type in input parameter', function(done) {
       db.procedure.input('id', 'IntV', 5);
-      db.procedure.execute('SP_TEST2', function(err){
-        if(err){
-          should.exist(err);
-          done();
-        }
-      });
+      db.procedure.execute('SP_TEST2')
+        .catch(function(err){
+            should.exist(err);
+            done();
+        });
   });     
 
   it('should through error if less number of parameter passed', function(done) {
-      db.procedure.execute('SP_TEST2', function(err){
-        if(err){
-          should.exist(err);
-          done();
-        }
-      });
+      db.procedure.execute('SP_TEST2')
+        .catch(function(err){
+            should.exist(err);
+            done();
+        });
   });      
 
   it('should through error if more number of parameter passed', function(done) {
       db.procedure.input('id1', 'Int', 5);
       db.procedure.input('id2', 'Int', 5);
-      db.procedure.execute('SP_TEST2', function(err){
-        if(err){
-          should.exist(err);
-          done();
-        }
-      });
+      db.procedure.execute('SP_TEST2')
+        .catch(function(err){
+            should.exist(err);
+            done();
+        });
   });    
 
 });
