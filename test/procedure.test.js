@@ -91,46 +91,47 @@ describe('Happy Stored Procedure', function() {
 
 describe('Unhappy Stored Procedure', function() {
 
-  it('should through error if not a valid stored procedure', function(done) {
+  it('should throw error if not a valid stored procedure', function(done) {
       db.procedure.execute('SP_TEST')
         .catch(function(err){
-            should.exist(err);
+            err.message.should.match(/Could not find stored procedure/);
             done();
         });
     });  
 
-  it('should through error if not a valid input parameter', function(done) {
+  it('should throw error if not a valid input parameter', function(done) {
       db.procedure.input('invalid', 'Int', 5);
       db.procedure.execute('SP_TEST2')
         .catch(function(err){
-            should.exist(err);
+            err.message.should.match(/expects parameter '@id', which was not supplied./);
             done();
         });
   });  
 
-  it('should through error if not a valid data type in input parameter', function(done) {
+  it('should throw error if not a valid data type in input parameter', function(done) {
       db.procedure.input('id', 'IntV', 5);
       db.procedure.execute('SP_TEST2')
         .catch(function(err){
-            should.exist(err);
+            err.message.should.match(/expects parameter '@id', which was not supplied./);
             done();
         });
   });     
 
-  it('should through error if less number of parameter passed', function(done) {
-      db.procedure.execute('SP_TEST2')
+  it('should throw error if less number of parameter passed', function(done) {
+      db.procedure.input('id', 'Int', 5);
+      db.procedure.execute('SP_TEST3')
         .catch(function(err){
-            should.exist(err);
+            err.message.should.match(/expects parameter '@result', which was not supplied./);
             done();
         });
   });      
 
-  it('should through error if more number of parameter passed', function(done) {
+  it('should throw error if more number of parameter passed', function(done) {
       db.procedure.input('id1', 'Int', 5);
       db.procedure.input('id2', 'Int', 5);
       db.procedure.execute('SP_TEST2')
         .catch(function(err){
-            should.exist(err);
+            err.message.should.match(/SP_TEST2 has too many arguments specified/);
             done();
         });
   });    
