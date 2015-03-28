@@ -80,8 +80,8 @@ describe('Happy Stored Procedure', function() {
       db.procedure.input('id', 'Int', 7);
       db.procedure.output('result', 'NVarChar');
       db.procedure.execute('SP_TEST3')
-        .then(function(recordSet){
-          recordSet.returnValue.should.equal(0);
+        .then(function(){
+          db.procedure.getOutput('result').should.equal('test7');
           done();
         });
   });    
@@ -110,8 +110,8 @@ describe('Unhappy Stored Procedure', function() {
 
   it('should throw error if not a valid data type in input parameter', function() {
       (function(){
-	db.procedure.input('id', 'IntV', 5);
-	db.procedure.execute('SP_TEST2');
+	       db.procedure.input('id', 'IntV', 5);
+	       db.procedure.execute('SP_TEST2');
       }).should.throw(/IntV is not a valid data type/);
   });     
 
@@ -133,5 +133,18 @@ describe('Unhappy Stored Procedure', function() {
             done();
         });
   });    
+
+  it('should throw error if given output parameter is not a valid one', function(done) {
+      db.procedure.input('id', 'Int', 7);
+      db.procedure.output('result', 'NVarChar');
+      db.procedure.execute('SP_TEST3')
+        .then(function(){
+          db.procedure.getOutput('result1');
+        }).catch(function(err){
+          err.should.match(/result1 is not a valid output parameter/);
+          done();
+        });
+  });   
+
 
 });
