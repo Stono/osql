@@ -14,7 +14,8 @@ drivers.push({
     server: '172.19.104.11',
     database: 'example_database'
   },
-  createTable: 'CREATE TABLE example_table (id int not null identity(1, 1) primary key, column1 TEXT)',
+  createTable: 'CREATE TABLE example_table (id int not null identity(1, 1) primary key, column1 TEXT)', 
   dropTable: 'IF OBJECT_ID(\'example_table\', \'U\') IS NOT NULL DROP TABLE example_table'
-});
+});        
+
 module.exports = drivers;
