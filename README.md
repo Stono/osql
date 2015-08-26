@@ -179,7 +179,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  - 0.3.0 REST wrapping for Restify
  - 0.3.1 Updated dependencies
  - 0.3.2 Stored proc work
- - 0.4.0 Added callback support as well as promises
+ - 0.4.0 Added callback support as well as promises 
+ - 0.4.1 Fixed an unhandled rejection
 
 ## License
 Copyright (c) 2014 Karl Stoney  
