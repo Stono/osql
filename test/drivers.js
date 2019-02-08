@@ -11,7 +11,7 @@ drivers.push({
   opts: {
     user: 'example_user',
     password: 'example_user_password',
-    server: '172.19.104.11',
+    server: '127.0.0.1',
     database: 'example_database'
   },
   createTable: 'CREATE TABLE example_table (id int not null identity(1, 1) primary key, column1 TEXT)', 
